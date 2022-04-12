@@ -9,7 +9,7 @@ body {
     margin: 0;
     height: 100vh;
     display: grid;
-    grid-template-rows: 1fr 3fr;
+    grid-template-rows: 1fr 4fr;
 }
 
 header {
@@ -19,27 +19,7 @@ header {
     /* background-color: white; */
     display: grid;
     grid-template-columns: 4fr 1fr;
-    grid-template-rows: 1fr 1fr;
-}
-
-header form .search{
-    display: flex;
-}
-
-header form button {
-    border: none;
-    background-color: white;
-}
-
-header form input {
-    width: 70%;
-    border-radius: 30px;
-    padding: 0.5rem;
-}
-
-header .user-wrapper {
-    justify-self: end;
-    margin-right: 0.5rem;
+    /* grid-template-rows: 1fr 1fr; */
 }
 
 header .new-book-button {
@@ -53,18 +33,27 @@ header .new-book-button {
 
 .modal {
     min-width: 280px;
+    max-width: 320px;
     border: none;
     border-radius: 10px;
 }
 
+.modal div {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .modal input{
-    width: 90%;
     margin: 0.5rem;
 }
 
 .modal label {
-    display: block;
     padding: 0.25rem
+}
+
+.modal .read {
+    width: 40%;
 }
 
 .modal .modal-buttons {
@@ -109,4 +98,9 @@ main .single-card {
 
 main .card-info {
     justify-self: center;
+}
+
+main .card-buttons button {
+    background-color: white;
+    border: none;
 }

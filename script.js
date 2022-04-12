@@ -33,13 +33,6 @@ class Book {
             this.read = 'No'
         }
     }
-    preventDuplicateTitle() {
-        myLibrary.forEach(book => {
-            if (Object.values(book).indexOf(this.title) > -1){
-                return false
-            }
-        }) 
-    }
 }
 
 function createCard(book) {
@@ -79,23 +72,28 @@ function addBookToLibrary(myLibrary) {
     newDeleteButton = document.getElementById(`delete-${new_book.title}`)
     deleteCardButtonsList.push(newDeleteButton)
     deleteCardButtonsList.forEach(deleteBtn => deleteBtn.addEventListener('click', (e) => {
-        myLibrary.splice(myLibrary.findIndex((book) => book.title == titleInput.value), 1)
-        console.log(myLibrary)
+        let parentElement =  e.target.parentNode.parentNode.parentNode.getAttribute('id')
+        myLibrary.splice(myLibrary.findIndex((book) => book.title == parentElement), 1)
+        console.log(myLibrary, titleInput.value, e.target.parentNode)
         e.target.parentNode.parentNode.parentNode.remove()
     }))
 
     let newReadButton = document.getElementById(`read-${new_book.title}`)
-    console.log(newReadButton)
     newReadButton.addEventListener('click', (e) => {
-
-        const readP = document.querySelector(`#${new_book.title} > div.card-info > p:nth-child(4)`)
-        console.log(readP)
-        readP.innerHTML = "Yes"
+        const readIndex = myLibrary.findIndex(book => book.title == new_book.title)
+        if (myLibrary[readIndex].read == 'Yes'){
+            myLibrary[readIndex].read = 'No'
+            const readP = document.querySelector(`#${new_book.title} > div.card-info > p:nth-child(4)`)
+            readP.innerHTML = "No"
+        } else if (myLibrary[readIndex].read == "No"){
+            myLibrary[readIndex].read = 'Yes'
+            const readP = document.querySelector(`#${new_book.title} > div.card-info > p:nth-child(4)`)
+            readP.innerHTML = "Yes"            
+        }
     })
     modal.close()
     newBookForm.reset()
 }
-
 
 submitModal.addEventListener('click', () => {
     myLibrary.forEach(book => {
@@ -114,7 +112,6 @@ submitModal.addEventListener('click', () => {
         addBookToLibrary(myLibrary)
     }
 })
-
 
 add_book_button.addEventListener('click', ()=> {
     modal.showModal();
